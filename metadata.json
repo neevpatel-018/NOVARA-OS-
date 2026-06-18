@@ -1,0 +1,6 @@
+{
+  "name": "NEXAGEN OS",
+  "description": "All-in-one personal operating system for students, developers, and professionals incorporating Smart Notes, Code Runner, Finance Tracker, Schedule, Task board, and Analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

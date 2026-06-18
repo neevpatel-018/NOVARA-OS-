@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Base style resets */
+:root {
+  color-scheme: light dark;
+}
+
+/* Force dark mode canvas styles to map to Sleek Interface specifications */
+.dark body,
+.dark #nexagen-v24-os,
+.dark #canvas-main-viewport,
+.dark #router-viewports {
+  background-color: #09090b !important;
+  color: #f4f4f5 !important;
+}
+
+/* Card Background re-route to #18181b */
+.dark .bg-white,
+.dark .bg-neutral-900,
+.dark .bg-emerald-950\/10,
+.dark .bg-indigo-950\/20,
+.dark .bg-purple-950\/20,
+.dark .bg-slate-900,
+.dark .dark\:bg-neutral-900,
+.dark .dark\:bg-[#1e1e24],
+.dark .dark\:bg-neutral-950 {
+  background-color: #18181b !important;
+}
+
+/* Secondary header or control block re-route to #111114 / #0f0f12 */
+.dark .bg-neutral-50,
+.dark .bg-neutral-100,
+.dark .bg-slate-950,
+.dark .dark\:bg-neutral-950,
+.dark .dark\:bg-neutral-850 {
+  background-color: #0f0f12 !important;
+}
+
+/* Specific button/badge states or inline codes */
+.dark .code-block,
+.dark .font-mono.bg-neutral-100,
+.dark .dark\:bg-neutral-900\/50 {
+  background-color: #0c0c0e !important;
+}
+
+/* Border color mapping to #27272a */
+.dark .border,
+.dark .border-t,
+.dark .border-b,
+.dark .border-l,
+.dark .border-r,
+.dark .border-neutral-100,
+.dark .border-neutral-200,
+.dark .border-neutral-200\/85,
+.dark .border-neutral-200\/90,
+.dark .border-neutral-200\/80,
+.dark .border-neutral-800,
+.dark .border-neutral-850,
+.dark .border-neutral-900,
+.dark .border-slate-200,
+.dark .border-slate-800,
+.dark .dark\:border-neutral-800,
+.dark .dark\:border-neutral-900,
+.dark .dark\:border-neutral-800\/80,
+.dark .dark\:border-neutral-850 {
+  border-color: #27272a !important;
+}
+
+/* Text selections */
+.dark .text-slate-800,
+.dark .text-neutral-900,
+.dark .text-neutral-800,
+.dark .dark\:text-white,
+.dark .dark\:text-neutral-100 {
+  color: #f4f4f5 !important;
+}
+
+.dark .text-neutral-500,
+.dark .text-neutral-410,
+.dark .text-neutral-400,
+.dark .dark\:text-neutral-400 {
+  color: #a1a1aa !important;
+}
+
+.dark .text-neutral-300,
+.dark .dark\:text-neutral-300 {
+  color: #d4d4d8 !important;
+}
+
+/* Hover styles for lists & menu cells */
+.dark .hover\:bg-neutral-50:hover,
+.dark .dark\:hover\:bg-neutral-850:hover,
+.dark .hover\:bg-slate-50:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Premium micro-scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #09090b;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Button & interactive components adjustments */
+.btn-primary,
+.dark .bg-indigo-600,
+.dark .dark\:bg-indigo-600 {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+.btn-primary:hover,
+.dark .bg-indigo-600:hover,
+.dark .bg-indigo-505:hover,
+.dark .dark\:bg-indigo-600:hover {
+  background-color: #4338ca !important;
+}
