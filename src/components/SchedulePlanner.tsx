@@ -267,7 +267,19 @@ export default function SchedulePlanner({
 
           {/* Detailed Timeline segments listings */}
           <div className="mt-6 space-y-4">
-            {dailyAgendaItems.length === 0 ? (
+            {schedule.length === 0 ? (
+              <div className="py-24 text-center text-neutral-450 dark:text-neutral-500" id="weekly-schedule-empty">
+                <Calendar className="mx-auto mb-3 text-indigo-550 opacity-80" size={36} />
+                <h3 className="text-base font-bold text-neutral-850 dark:text-neutral-150">No classes added yet</h3>
+                <p className="text-xs max-w-xs mx-auto mt-1 mb-4 text-zinc-400">Your study scheduler template starts completely clean.</p>
+                <button
+                  onClick={() => setIsOpenAddForm(true)}
+                  className="rounded-lg bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-4 py-2 text-xs transition-all active:scale-95 cursor-pointer"
+                >
+                  [ Add First Class ]
+                </button>
+              </div>
+            ) : dailyAgendaItems.length === 0 ? (
               <div className="py-24 text-center text-neutral-400 dark:text-neutral-500" id="weekly-agenda-empty">
                 <Calendar className="mx-auto mb-3 text-neutral-300 opacity-60" size={36} />
                 <h3 className="text-base font-bold text-neutral-850 dark:text-neutral-150">No studies scheduled</h3>

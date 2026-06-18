@@ -93,6 +93,20 @@ export default function AnalyticsDashboard({
     { name: 'Pending Backlog', count: tasks.length - completedCount, color: '#6366f1' }
   ];
 
+  if (notes.length === 0 && tasks.length === 0 && schedule.length === 0 && transactions.length === 0) {
+    return (
+      <div className="rounded-xl border border-neutral-200/80 bg-white p-12 text-center max-w-sm mx-auto my-12 shadow-md dark:border-neutral-800 dark:bg-neutral-900" id="analytics-empty-state">
+        <div className="rounded-2xl bg-indigo-50 dark:bg-indigo-950/20 w-12 h-12 flex items-center justify-center mx-auto mb-4 text-indigo-550 border border-indigo-500/20">
+          <BarChart3 size={22} className="text-indigo-505" />
+        </div>
+        <h3 className="text-sm font-bold text-neutral-900 dark:text-white mb-1">Analytics View</h3>
+        <p className="text-xs text-neutral-500 dark:text-zinc-400 mt-1">
+          Analytics will appear after you start using the system.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6" id="analytics-module">
       

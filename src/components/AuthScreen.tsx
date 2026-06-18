@@ -114,76 +114,26 @@ export default function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
         // Create User
         await StorageService.save('users', newUser);
 
-        // Prepopulate workspace for default clean starter templates!
-        // 1. Folders
-        for (const folder of INITIAL_FOLDERS) {
-          await StorageService.save('folders', {
-            ...folder,
-            userId
-          });
-        }
-
-        // 2. Clear notes copy & transform
-        for (const note of INITIAL_NOTES) {
-          let blockList: any[] = [];
-          
-          // Import blocks elegantly 
-          // Let's create proper document formats that support the new documents specification
-          const blockId1 = 'b_p_' + Math.random().toString(36).substr(2, 9);
-          
-          await StorageService.save('documents', {
-            id: note.id,
-            userId,
-            title: note.title,
-            tags: note.tags,
-            blocks: [{ id: blockId1, type: 'paragraph', content: note.content }],
-            content: note.content,
-            folderId: note.folderId,
-            createdAt: note.createdAt,
-            updatedAt: note.updatedAt
-          });
-        }
-
-        // 3. Transactions
-        for (const trans of INITIAL_TRANSACTIONS) {
-          await StorageService.save('finance', {
-            ...trans,
-            userId,
-            note: trans.description,
-            createdAt: new Date(trans.date).toISOString() // seed ISO
-          });
-        }
-
-        // 4. Tasks
-        for (const task of INITIAL_TASKS) {
-          await StorageService.save('tasks', {
-            ...task,
-            userId
-          });
-        }
-
-        // 5. Schedule
-        for (const sched of INITIAL_SCHEDULE) {
-          await StorageService.save('schedule', {
-            ...sched,
-            userId,
-            title: sched.subject
-          });
-        }
+        // Every new account starts as a completely blank workspace!
+        // No preloaded folders, notes, transactions, tasks, or schedules are created automatically.
 
         // 6. Settings
         const userSettings = {
           userId,
           profile: {
             name: fullName.trim(),
-            role: 'Developer Pro',
+            role: 'Nexagen Pro Member',
             email: email.toLowerCase().trim(),
-            avatar: DEFAULT_SETTINGS.profile.avatar,
+            avatar: '', // Starting empty to generate initials dynamically in UI
             joinedDate: new Date().toISOString().split('T')[0]
           },
-          notifications: DEFAULT_SETTINGS.notifications,
-          soundEnabled: DEFAULT_SETTINGS.soundEnabled,
-          initialBalance: DEFAULT_SETTINGS.initialBalance,
+          notifications: {
+            emailNotifications: true,
+            pushNotifications: false,
+            weeklyDigest: true
+          },
+          soundEnabled: true,
+          initialBalance: 0, // Starts at zero
           theme: 'dark' as 'light' | 'dark'
         };
         await StorageService.save('settings', userSettings);

@@ -138,13 +138,26 @@ export default function App() {
         if (dbSettings) {
           setSettings(dbSettings);
         } else {
+          // Fetch real user info to prevent mock data leaks
+          let realName = 'Nexagen Pro Member';
+          let realEmail = 'developer@nexagen.io';
+          try {
+            const userRec = await StorageService.load('users', currentUser);
+            if (userRec) {
+              realName = userRec.name;
+              realEmail = userRec.email;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+
           // create workspace initial settings defaults for user
           const defaultUserSet: AppSettings = {
             profile: {
-              name: 'Developer Pro',
-              role: 'Full-Stack Developer',
-              email: 'developer@nexagen.io',
-              avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150',
+              name: realName,
+              role: 'Nexagen Pro Member',
+              email: realEmail,
+              avatar: '', // blank to generate stylish initials dynamically
               joinedDate: new Date().toISOString().split('T')[0]
             },
             notifications: {
@@ -153,7 +166,7 @@ export default function App() {
               weeklyDigest: true
             },
             soundEnabled: true,
-            initialBalance: 5000
+            initialBalance: 0 // starts at 0
           };
           setSettings(defaultUserSet);
           await StorageService.save('settings', { ...defaultUserSet, userId: currentUser });
@@ -610,15 +623,21 @@ export default function App() {
 
           {/* User quick Profile Badge */}
           <div className="px-5 py-4 flex items-center gap-3 border-b border-neutral-100/50 dark:border-[#27272a]/50 hover:bg-neutral-50/20 dark:hover:bg-white/5 transition-all cursor-pointer" onClick={() => setActiveTab('settings')}>
-            <img 
-              referrerPolicy="no-referrer"
-              src={settings.profile.avatar} 
-              alt="Rachel Carter Avatar" 
-              className="h-8 w-8 rounded-full object-cover border border-neutral-200/40 dark:border-[#27272a] shadow-xs" 
-            />
+            {settings.profile.avatar ? (
+              <img 
+                referrerPolicy="no-referrer"
+                src={settings.profile.avatar} 
+                alt="User Avatar" 
+                className="h-8 w-8 rounded-full object-cover border border-neutral-200/40 dark:border-[#27272a] shadow-xs" 
+              />
+            ) : (
+              <div className="h-8 w-8 rounded-full bg-indigo-650 text-white font-extrabold flex items-center justify-center text-[10px] tracking-wider border border-indigo-500/30 shrink-0">
+                {settings.profile.name ? settings.profile.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'NX'}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <h4 className="text-xs font-semibold truncate text-neutral-850 dark:text-white">{settings.profile.name}</h4>
-              <p className="text-[10px] text-neutral-450 dark:text-zinc-550 uppercase tracking-widest leading-none mt-0.5">{settings.profile.role || 'Developer Pro'}</p>
+              <p className="text-[10px] text-neutral-450 dark:text-zinc-550 uppercase tracking-widest leading-none mt-0.5">{settings.profile.role || 'Nexagen Pro Member'}</p>
             </div>
           </div>
 

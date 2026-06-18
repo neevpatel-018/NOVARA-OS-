@@ -269,9 +269,22 @@ export default function TaskManager({
 
       {/* Main Multi-View Space */}
       <div id="tasks-main-workspace">
-
-        {/* Kanban Board View layout */}
-        {activeView === 'kanban' && (
+        {tasks.length === 0 ? (
+          <div className="py-24 text-center text-neutral-450 dark:text-neutral-500" id="tasks-empty-slate">
+            <CheckSquare className="mx-auto mb-3 text-indigo-550 opacity-80" size={36} />
+            <h3 className="text-base font-bold text-neutral-850 dark:text-neutral-150">No tasks created yet</h3>
+            <p className="text-xs max-w-xs mx-auto mt-1 mb-4 text-zinc-400">Set up milestones, project targets, or daily study tasks.</p>
+            <button
+              onClick={() => setIsOpenForm(true)}
+              className="rounded-lg bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-4 py-2 text-xs transition-all active:scale-95 cursor-pointer animate-pulse"
+            >
+              [ Create First Task ]
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Kanban Board View layout */}
+            {activeView === 'kanban' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="tasks-kaban-grid">
             
             {/* Column 1: Backlog / To Do (Medium, Low priority task items) */}
@@ -478,6 +491,8 @@ export default function TaskManager({
             </div>
           </div>
         )}
+      </>
+    )}
 
       </div>
 

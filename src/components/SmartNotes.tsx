@@ -290,21 +290,15 @@ export default function SmartNotes({
   // Creation of beautiful templates
   const handleAddNewNote = () => {
     const startupBlocks: DocumentBlock[] = [
-      createBlock('heading', 'Smart Interactive Workspace'),
-      createBlock('paragraph', 'Welcome to your hybrid document workspace. Here you can write clean text, insert layouts, checklists, tables, and compile executable code segments seamlessly.'),
-      { ...createBlock('checklist'), checked: false, content: 'Initialize secure compiler sandbox instance' },
-      { ...createBlock('checklist'), checked: true, content: 'Verify active Monaco IDE block rendering pipeline' },
-      createBlock('code', ''),
-      createBlock('paragraph', 'Modify columns, parameters, or grid dimensions dynamically:'),
-      createBlock('table', '')
+      createBlock('paragraph', '')
     ];
 
     const newNote: Note = {
       id: 'n_' + Date.now(),
-      title: 'Untouchable Labs Documents',
+      title: 'Untitled Document',
       content: JSON.stringify(startupBlocks),
       folderId: selectedFolderId,
-      tags: ['Interactive', 'Docs'],
+      tags: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -948,19 +942,20 @@ export default function SmartNotes({
             </div>
           </>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-zinc-505 h-full">
+          <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-zinc-505 h-full" id="documents-empty-state">
             <div className="rounded-2xl bg-white/5 p-6 border border-[#27272a] mb-4">
               <FileText className="h-10 w-10 text-indigo-500 opacity-80" />
             </div>
-            <h3 className="text-lg font-bold text-zinc-100">No Document Selected</h3>
+            <h3 className="text-lg font-bold text-zinc-100">Create your first document</h3>
             <p className="text-xs max-w-xs mt-1 leading-relaxed text-zinc-400">
-              Create an interactive technical workspace, study sheet logs, or select a document from the vault.
+              Your workspace is currently blank. Ready to launch a clean digital paper canvas?
             </p>
             <button
               onClick={handleAddNewNote}
               className="mt-5 rounded-lg bg-indigo-600 hover:bg-[#4338ca] text-white font-medium px-4 py-2 text-sm shadow-md transition-all active:scale-95"
+              id="first-document-btn"
             >
-              Add Interactive Document
+              [ New Document ]
             </button>
           </div>
         )}

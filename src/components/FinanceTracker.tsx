@@ -38,6 +38,7 @@ export default function FinanceTracker({
   // Balance management states
   const [isEditingBalance, setIsEditingBalance] = useState(false);
   const [balanceInput, setBalanceInput] = useState(settings.initialBalance.toString());
+  const [forceProceed, setForceProceed] = useState(false);
 
   // Transaction form states
   const [amount, setAmount] = useState('');
@@ -147,6 +148,51 @@ export default function FinanceTracker({
       balance: cumBalance
     };
   });
+
+  if (settings.initialBalance === 0 && transactions.length === 0 && !forceProceed) {
+    return (
+      <div className="flex items-center justify-center py-20 px-4" id="welcome-fiscal-wallet">
+        <div className="rounded-2xl border border-neutral-200/80 bg-white p-8 text-center max-w-sm w-full shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="rounded-2xl bg-indigo-50 dark:bg-indigo-950/20 w-12 h-12 flex items-center justify-center mx-auto mb-4 text-indigo-550 border border-indigo-500/20">
+            <CreditCard size={22} className="text-indigo-500" />
+          </div>
+          <h3 className="text-lg font-extrabold tracking-tight text-neutral-900 dark:text-white mb-2">Welcome to Fiscal Wallet</h3>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-6 leading-relaxed">
+            Please enter your starting balance to begin tracking transactions, income channels, and cash flow trendlines.
+          </p>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const parsed = parseFloat(balanceInput);
+            if (!isNaN(parsed) && parsed >= 0) {
+              onUpdateInitialBalance(parsed);
+              setForceProceed(true);
+            }
+          }} className="space-y-4">
+            <div className="text-left">
+              <label className="block text-[10px] font-mono font-bold uppercase text-neutral-400 mb-1.5">Starting Balance (USD)</label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-500 font-mono text-sm">$</span>
+                <input
+                  type="number"
+                  value={balanceInput || ''}
+                  onChange={(e) => setBalanceInput(e.target.value)}
+                  placeholder="0.00"
+                  className="w-full text-xs rounded-lg bg-neutral-50 dark:bg-neutral-950 pl-7 pr-3 py-2.5 text-neutral-850 dark:text-white border border-neutral-250 dark:border-neutral-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-mono"
+                  autoFocus
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-indigo-650 hover:bg-indigo-600 text-white font-semibold py-2.5 text-xs tracking-wider uppercase transition-colors cursor-pointer"
+            >
+              [ Enter Balance ]
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6" id="finance-module">
